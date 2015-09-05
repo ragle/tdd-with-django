@@ -99,7 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # GAWKDAR sees that the HU-MAN has received his own URL
         tommy_list_url = self.browser.current_url
-        self.assertRegest(francis_list_url, '/lists/.+')
+        self.assertRegex(tommy_list_url, '/lists/.+')
         self.assertNotEqual(tommy_list_url, gawkdar_list_url)
 
         
