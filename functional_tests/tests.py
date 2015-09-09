@@ -21,18 +21,16 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn(row_text, [row.text for row in rows])
         
     def test_can_start_a_list_and_retrieve_it_later(self): 
-        # GAWKDAR, the 11-dimensional ET from the number 25 has telepathically 
-        # become aware of a cool new online to do app. THIS PLEASES GAWKDAR.
-        # GAWKDAR navigates to the app's home page.
+        # Ted visits the to-do app         
         self.browser.get(self.live_server_url)
 
-        # GAWKDAR notices the page title and header mention to-do lists
+        # He notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
 
         
-        # GAWKDAR is invited to enter a to-do item straight away
+        # He is invited to enter a to-do item straight away
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
                 inputbox.get_attribute('placeholder'),
@@ -40,76 +38,83 @@ class NewVisitorTest(LiveServerTestCase):
         )
 
         
-        # GAWKDAR types "INSTALL DELICIOUS EARTH TWIZLERS IN GAWKDAR HYPERSTOMACH"
-        # and presses enter.
-        first_input = 'INSTALL DELICIOUS EARTH TWIZLERS IN GAWKDAR HYPERSTOMACH'
+        # He types "eat Twizlers" and presses enter
+        first_input = 'eat Twizlers'
         inputbox.send_keys(first_input)
         inputbox.send_keys(Keys.ENTER)
 
         
-        # When GAWKDAR  hits enter, GAWKDAR is taken to a new url. 
+        # When Ted hits enter, he is taken to a new URL
         # Now the page lists:
-        # "1: INSTALL DELICIOUS EARTH TWIZLERS IN GAWKDAR HYPERSTOMACH"
+        # "1: eat twizlers"
         # as an item in a to-do list table
         gawkdar_list_url = self.browser.current_url
         self.assertRegex(gawkdar_list_url, '/lists/.+')
         self.check_for_row_in_list_table('1: '+ first_input)
         
         
-        # There is still a text box inviting GAWKDAR to add another item.
-        # GAWKDAR enters "DISPOSE OF EARTH SNACK PACKAGING IN GAWKDAR-APPROVED 
-        # RECEPTICLE" 
+        # There is still a text box inviting him to enter another item
+        # He types "dispose of packaging responsibly" and presses enter
         inputbox = self.browser.find_element_by_id('id_new_item')
-        second_input = 'DISPOSE OF EARTH SNACK PACKAGING IN GAWKDAR-APPROVED'+\
-                       ' RECEPTICLE'
+        second_input = 'dispose of packaging responsibly'
         inputbox.send_keys(second_input)
         inputbox.send_keys(Keys.ENTER)
         self.check_for_row_in_list_table('1: ' + first_input)
         self.check_for_row_in_list_table('2: ' + second_input)
 
-        
-        # The page updates again and now shows both items on GAWKDAR'S list
-        # GAWKDAR IS SUDDENLY CURIOUS!
-        # If a HU-MAN goes to the website, will the HU-MAN be able to view
-        # GAWKDAR's list? 
-        # GAWKDAR reaches out into the ether, assumes control of a HU-MAN's 
-        # body, and returns to the page
+        # Ted quits, and goes to work
         self.browser.quit()
+
+        # Ted tells Alice about the app. She opens up her browser...
         self.browser = webdriver.Firefox()
 
-        
-        # The HU-MAN host Tommy visits the page. There is no sign of GAWKDAR's
-        # plans to consume delicious earth snacks and dispose of waste 
-        # responsibly.
-        # THIS PLEASES GAWKDAR!
+       
+        # Alice visits the app. She doesn't see Ted's list
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn(first_input, page_text)
         self.assertNotIn(second_input, page_text)
 
-        
-        # GAWKDAR senses that his HU-MAN host requires additional fiber in his
-        # diet. GAWKDAR is not a monster. GAWKDAR helps the meat puppet create a
-        # helpful to-do list of his own:
+       
+        # Alice starts a to do list of her own
         inputbox = self.browser.find_element_by_id('id_new_item')
-        third_input = 'Buy Rasin Bran'
+        third_input = 'Go for a jog'
         inputbox.send_keys(third_input)
         inputbox.send_keys(Keys.ENTER)
 
 
-        # GAWKDAR sees that the HU-MAN has received his own URL
+        # Alice sees that she's been given her own URL for her new list
         tommy_list_url = self.browser.current_url
         self.assertRegex(tommy_list_url, '/lists/.+')
         self.assertNotEqual(tommy_list_url, gawkdar_list_url)
 
-        
-        # and that there is no trace of GAWKDAR's list in the HU-MAN's list
+       
+        # And that there is no trace of ted's list to be found
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn(first_input, page_text)
         self.assertIn(third_input, page_text)
 
+    def test_layout_and_styling(self):
 
-        # Satisfied, GAWKDAR separates from the HU-MAN host and returns to a 
-        # state of profound inner peace, in perfect harmony with the true nature 
-        # of unconditioned reality.
-        assert 1 == 1
+        # Ted navigates to the front page of his favorite to-do list app
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # He sees that the input box is nicely centered, indicating the 
+        # stylesheets are still loading correctly, and all is as it should be
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+                inputbox.location['x'] + inputbox.size['width'] / 2,
+                512,
+                delta=5
+        )
+
+        # Ted wonders, if he adds an item, will the 
+        # new item page page also display properly?
+        inputbox.send_keys('testing\n')
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+                inputbox.location['x'] + inputbox.size['width'] / 2,
+                512,
+                delta=5
+        )
