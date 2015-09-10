@@ -35,4 +35,3 @@ source ~/.local/bin/virtualenvwrapper.sh
 *  `cp gunicorn-upstart.template.conf /etc/init/SITENAME.conf`
 *  edit conf file to reflect project paths
 *  sudo start SITENAME
-
