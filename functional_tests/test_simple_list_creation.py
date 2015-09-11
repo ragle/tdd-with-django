@@ -1,43 +1,9 @@
 # Functional tests and user story for a simple "hello world" 
 # to-do app created with Django
 
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from .base import FunctionalTest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from unittest import skip
-import time
-import sys
-
-
-
-class FunctionalTest(StaticLiveServerTestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        for arg in sys.argv:
-            if 'liveserver' in arg:
-                cls.server_url = 'http://' + arg.split('=')[1]
-                return
-        super().setUpClass()
-        cls.server_url = cls.live_server_url
-
-    @classmethod
-    def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
-            super().tearDownClass()
-
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn(row_text, [row.text for row in rows])
- 
 
 
 class NewVisitorTest(FunctionalTest):
@@ -115,53 +81,4 @@ class NewVisitorTest(FunctionalTest):
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn(first_input, page_text)
         self.assertIn(third_input, page_text)
-
-
-class LayoutAndStylingTest(FunctionalTest):
-
-    def test_layout_and_styling(self):
-
-        # Ted navigates to the front page of his favorite to-do list app
-        self.browser.get(self.server_url)
-        self.browser.set_window_size(1024, 768)
-
-        # He sees that the input box is nicely centered, indicating the 
-        # stylesheets are still loading correctly, and all is as it should be
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertAlmostEqual(
-                inputbox.location['x'] + inputbox.size['width'] / 2,
-                512,
-                delta=5
-        )
-
-        # Ted wonders, if he adds an item, will the 
-        # new item page page also display properly?
-        inputbox.send_keys('testing\n')
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertAlmostEqual(
-                inputbox.location['x'] + inputbox.size['width'] / 2,
-                512,
-                delta=5
-        )
-
-
-class ItemValidationTest(FunctionalTest):
-
-    @skip
-    def test_cannod_add_empty_list_items(self):
-
-        # Edith goes to the home page and accidentally tries to submit an
-        # empty list item. She hits enter on the empty input box
-
-        # The home page refreshes, and there is an error message saying
-        # that list items cannot be left blank
-
-        # She tries again with some text for the item, which now works
-
-        # Perversely, she now decides to submit a second blank list item
-
-        # She receives a similar warning on the list page
-
-        # And she can correct it by filling some text in
-        self.fail("write me!")
 

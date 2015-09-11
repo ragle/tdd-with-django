@@ -38,7 +38,7 @@ def _update_settings(source_folder, site_name):
     sed(settings_path,
             'ALLOWED_HOSTS = .+$',
             'ALLOWED_HOSTS = ["%s"]' % (site_name,)
-    )
+            )
     secret_key_file = source_folder + '/superlists/secret_key.py'
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
@@ -58,7 +58,7 @@ def _update_virtualenv(source_folder):
                 run('ln -s %s/%s %s' % (virtualenv_root, env.host, virtualenv_folder,))
     run('%s/bin/pip install -r %s/requirements.txt' %(
         virtualenv_folder, source_folder
-    ))
+        ))
 
 
 def _update_static_files(source_folder):
