@@ -19,7 +19,7 @@ class NewVisitorTest(FunctionalTest):
 
         
         # He is invited to enter a to-do item straight away
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertEqual(
                 inputbox.get_attribute('placeholder'),
                 'Enter a to-do item'
@@ -43,7 +43,7 @@ class NewVisitorTest(FunctionalTest):
         
         # There is still a text box inviting him to enter another item
         # He types "dispose of packaging responsibly" and presses enter
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         second_input = 'dispose of packaging responsibly'
         inputbox.send_keys(second_input)
         inputbox.send_keys(Keys.ENTER)
@@ -65,7 +65,7 @@ class NewVisitorTest(FunctionalTest):
 
        
         # Alice starts a to do list of her own
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         third_input = 'Go for a jog'
         inputbox.send_keys(third_input)
         inputbox.send_keys(Keys.ENTER)

@@ -13,7 +13,7 @@ class LayoutAndStylingTest(FunctionalTest):
 
         # He sees that the input box is nicely centered, indicating the 
         # stylesheets are still loading correctly, and all is as it should be
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertAlmostEqual(
                 inputbox.location['x'] + inputbox.size['width'] / 2,
                 512,
@@ -23,7 +23,7 @@ class LayoutAndStylingTest(FunctionalTest):
         # Ted wonders, if he adds an item, will the 
         # new item page page also display properly?
         inputbox.send_keys('testing\n')
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertAlmostEqual(
                 inputbox.location['x'] + inputbox.size['width'] / 2,
                 512,
