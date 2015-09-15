@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from lists.models import Item
 
 
-EMPTY_ITEM_ERROR = "You can't have an empty list item"
+EMPTY_ITEM_ERROR = "A wise man once said nothing at all. I'll go ahead and not add that to the list..."
 DUPLICATE_ITEM_ERROR = "You've already got this in your list"
 
 class ItemForm(forms.models.ModelForm):
@@ -14,7 +14,7 @@ class ItemForm(forms.models.ModelForm):
         fields = ('text',)
         widgets = {
                 'text': forms.fields.TextInput(attrs={
-                    'placeholder': 'Enter a to-do item',
+                    'placeholder': 'Add your quote here...',
                     'class': 'form-control input-lg',
                     }),
         }

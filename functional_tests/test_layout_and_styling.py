@@ -7,7 +7,7 @@ class LayoutAndStylingTest(FunctionalTest):
 
     def test_layout_and_styling(self):
 
-        # Ted navigates to the front page of his favorite to-do list app
+        # Ted navigates to the front page of his favorite quotes app
         self.browser.get(self.server_url)
         self.browser.set_window_size(1024, 768)
 
@@ -29,4 +29,3 @@ class LayoutAndStylingTest(FunctionalTest):
                 512,
                 delta=5
         )
-

@@ -7,16 +7,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>To-Do lists</title>
         <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/bootstrap/bootflat/css/bootflat.css" rel="stylesheet">
+        <link href="/static/bootstrap/css/site.css" rel="stylesheet">
         <link href="/static/base.css" rel="stylesheet">
     </head>
 
     <body>
-        <div class="container">
 
-            <nav class="navbar navbar-default" role="navigation">
-                <a class="navbar-brand" href="/">Superlists</a>
-                <a class="btn navbar-btn navbar-right" id="id_login" href="#">Sign in</a>
-            </nav>
+        <nav class="navbar navbar-quotable" role="navigation">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <div style="position:relative"><a class="navbar-brand quotable-header-link quotable-logo" href="/">Quotable</a></div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                        <a class="nav-link quotable-header-link" href="#" id="id_login">Sign In</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--<button type="button" class="btn navbar-btn navbar-right" id="id_login">Sign in</button>-->
+        </nav>
+
+        <div class="container">
 
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 jumbotron">
@@ -41,22 +53,41 @@
                     {% endblock %}
                 </div>
             </div>
-
         </div>
+
+        <div class="row navbar-fixed-bottom">
+            <div class="col-md-12">
+                <div class="footer">
+                    <div class="container">
+                        <div class="clearfix">
+                            <div class="footer-logo col-md-3"><a class="quotemark" href="#">Quotable</a></div>
+                            <div class="col-md-9">
+                                <p class="quotable-footer-text"> Quotable is a minimalist app for collecting and sharing quotes with friends. </p>
+                                <p class="quotable-footer-text"> I'm creating it to teach myself the basics of test-driven development, automated deployment and continuous integration as I work through Harry Percival's excellent book on these subjects.</p>
+<p class="quotable-footer-text"> You are welcome to create an account to use the app, of course, but keep in mind the goal of this project is to familarize myself with some new back-end tools (<a href="https://www.djangoproject.com" target="_blank">Django</a>, <a href="http://www.fabfile.org" target="_blank">Fabric</a> and <a href="https://jenkins-ci.org" target="_blank" >Jenkins</a> specifically) and a different way of doing things - not to create a featureful app with an award-winning front-end! :) </p>
+<p class="quotable-footer-text"> Finally - Quotable is still a work in progress / testing. It will be a few days until all the tests are green and the features work as expected. Enjoy! </p>
+                            </div>
+                        </div>
+                        <div class="footer-copyright text-center" style="margin-top: 2em"><a href="https://github.com/ragle/tdd-with-django">See the code on github</a> - <a href="#">upstream (staging) server</a> - <a href="#">Jenkins dashboard</a> - <a href="https://ragle.sanukcode.net">ragle@sanukcode</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="http://code.jquery.com/jquery.min.js"></script>
         <script src="https://login.persona.org/include.js"></script>
         <script src="/static/accounts.js"></script>
         <script src="/static/list.js"></script>
         <script>
-            $(document).ready(function () {
-                var user = "{{ user.email }}" || null;
-                var token = "{{ csrf_token }}";
-                var urls = {
-                    login: "TODO",
-                    logout: "TODO",
-                };
-                Superlists.Accounts.initialize(navigator, user, token, urls);
-            });
+$(document).ready(function () {
+        var user = "{{ user.email }}" || null;
+        var token = "{{ csrf_token }}";
+        var urls = {
+login: "TODO",
+logout: "TODO",
+};
+Superlists.Accounts.initialize(navigator, user, token, urls);
+});
         </script>
     </body>
 </html>

@@ -1,3 +1,51 @@
 #id_text{
     margin-top: 2ex;
 }
+
+
+/* HEADER */
+
+.navbar-quotable{
+    background-color: #434A54;
+}
+
+.quotable-header-link {
+    color: #fff;
+    font-weight:bold;
+
+}
+
+.quotable-logo:before{
+    display:block;
+    position:absolute;
+    left:-30px;
+    top: 17px;
+    width:70px;
+    padding-right:20px;
+    content:"\201C";
+    font-size: 60px;
+    color:#fff;
+    font-family: Georgia;
+}
+
+/* FOOTER */ 
+
+.quotemark:before{
+    display:block;
+    position:absolute;
+    left: -10px;
+    top: -5px;
+    width:70px;
+    padding-right:20px;
+    content:"\201C";
+    font-size: 60px;
+    color:#fff;
+    font-family: Georgia;
+}
+
+
+
+.quotable-footer-text{
+    color: #fff
+}
+
