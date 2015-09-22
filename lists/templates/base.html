@@ -19,9 +19,18 @@
                 <div class="collapse navbar-collapse">
                     <div style="position:relative"><a class="navbar-brand quotable-header-link quotable-logo" href="/">Quotable</a></div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                        <a class="nav-link quotable-header-link" href="#" id="id_login">Sign In</a>
-                        </li>
+                        {% if user.email %}
+                            <li>
+                              <span class="nav-link quotable-header-link">Logged in as {{user.email}}</span>
+                            </li>
+                            <li>
+                              <a class="nav-link quotable-header-link" href="#" id="id_logout">Logout</a>
+                            </li>
+                        {% else %}
+                            <li>
+                            <a class="nav-link quotable-header-link" href="#" id="id_login">Sign In</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -78,15 +87,15 @@
         <script src="/static/accounts.js"></script>
         <script src="/static/list.js"></script>
         <script>
-$(document).ready(function () {
-        var user = "{{ user.email }}" || null;
-        var token = "{{ csrf_token }}";
-        var urls = {
-login: "TODO",
-logout: "TODO",
-};
-Superlists.Accounts.initialize(navigator, user, token, urls);
-});
+            $(document).ready(function () {
+                var user = "{{ user.email }}" || null;
+                var token = "{{ csrf_token }}";
+                var urls = {
+                    login: "{% url 'persona_login' %}",
+                    logout: "TODO",
+                };
+                Superlists.Accounts.initialize(navigator, user, token, urls);
+            });
         </script>
     </body>
 </html>
