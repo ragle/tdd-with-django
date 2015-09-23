@@ -1,6 +1,6 @@
 # Learning test-driven development with Python
 
-This repo tracks The work I did through Harry Percival's excellent book "Test-driven development with Python".  
+This repo tracks the work I did through Harry Percival's excellent book "Test-driven development with Python".  
 
 The book was a fun introduction to the basics of testing web applications written in Python and JavaScript, automated deployments / configuration management with [Fabric](http://www.fabfile.org/), continuous integration using [Jenkins](https://jenkins-ci.org/) and third-party authentication using Mozilla's [persona](https://www.mozilla.org/en-US/persona/) project.
 
