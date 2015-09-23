@@ -3,6 +3,11 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 
 class List(models.Model):
+
+    @property
+    def name(self):
+        first_text = self.item_set.first().text.split(" ")
+        return " ".join(first_text[0:5]) + "..."
     
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 

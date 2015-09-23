@@ -21,8 +21,12 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.email %}
                             <li>
-                            <a class="nav-link quotable-header-link" href="{%url 'my_lists' user.email %}" id="id_logout">My Lists</a>
+                            <a class="nav-link quotable-header-link" href="{%url 'my_lists' user.email %}">My Lists</a>
                             </li>
+                            <li>
+                            <a class="nav-link quotable-header-link" href="/">New List</a>
+                            </li>
+
                             <li>
                             <a class="nav-link quotable-header-link" href="#" id="id_logout">Logout</a>
                             </li>
