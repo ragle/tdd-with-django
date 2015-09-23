@@ -26,7 +26,6 @@ SECRET_KEY = 'v0@q=0l^b$ls@$5!4omiqye0nbcqr(khm$lr2j$-w=!o3-b9=i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'lists',
     'accounts',
+    'functional_tests',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -129,3 +129,8 @@ AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
         'accounts.authentication.PersonaAuthenticationBackend',
 )
+
+# This setting is changed by the deploy script
+DOMAIN = "localhost"
+
+ALLOWED_HOSTS = [DOMAIN]
