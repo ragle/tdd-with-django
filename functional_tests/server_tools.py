@@ -16,6 +16,9 @@ def create_session_on_server(host, email):
     ).decode().strip()
 
 def reset_database(host):
+    if "www" in host:
+        raise RuntimeError("FTs SHOULD NOT BE RUN AGAINST THE PRODUCTION SERVER")
+        return
     user = environ['LIVESERVERUSER']
     subprocess.check_call(
             ['fab', 'reset_database', '--host={}@{}'.format(user,host)],
