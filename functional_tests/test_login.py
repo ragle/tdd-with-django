@@ -1,6 +1,5 @@
 import time
 
-
 from .base import FunctionalTest
 
 TEST_EMAIL = "kevin@mockmyid.com"

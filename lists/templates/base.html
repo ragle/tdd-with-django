@@ -21,6 +21,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.email %}
                             <li>
+                            <a class="nav-link quotable-header-link" href="{%url 'my_lists' user.email %}" id="id_logout">My Lists</a>
+                            </li>
+                            <li>
                             <a class="nav-link quotable-header-link" href="#" id="id_logout">Logout</a>
                             </li>
                             <li>
@@ -43,6 +46,7 @@
                 <div class="col-md-6 col-md-offset-3 jumbotron">
                     <div class="text-center">
                         <h1>{% block header_text %}{% endblock %}</h1>
+                        {% block list_form %}
                         <form method="POST" action="{% block form_action %}{% endblock %}">
                             {{ form.text }}
                             {% csrf_token %}
@@ -52,6 +56,7 @@
                             </div>
                             {% endif %}
                         </form>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -59,6 +64,13 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
                     {% block table %}
+                    {% endblock %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    {% block extra_content %}
                     {% endblock %}
                 </div>
             </div>
