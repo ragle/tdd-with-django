@@ -1,8 +1,9 @@
 import time
 
-from selenium.webdriver.support.ui import WebDriverWait
 
 from .base import FunctionalTest
+
+TEST_EMAIL = "kevin@mockmyid.com"
 
 class LoginTest(FunctionalTest):
 
@@ -16,24 +17,6 @@ class LoginTest(FunctionalTest):
             retries -= 1
             time.sleep(0.5)
         self.fail('could not find window')
-
-    def wait_for_element_with_id(self, element_id):
-        WebDriverWait(self.browser, timeout=30).until(
-            lambda b: b.find_element_by_id(element_id),
-            'Could not find element with id {}. Page text was: \n{}'.format(
-                element_id, self.browser.find_element_by_tag_name('body').text
-            )
-        )
-
-    def wait_to_be_logged_in(self):
-        self.wait_for_element_with_id('id_logout')
-        navbar = self.browser.find_element_by_css_selector('.navbar')
-        self.assertIn('kevin@mockmyid.com', navbar.text)
-
-    def wait_to_be_logged_out(self):
-        self.wait_for_element_with_id('id_login')
-        navbar = self.browser.find_element_by_css_selector('.navbar')
-        self.assertNotIn('kevin@mockmyid.com', navbar.text)
 
     def test_login_with_persona(self):
         # Kevin goes to the awesome superlists site
@@ -49,7 +32,7 @@ class LoginTest(FunctionalTest):
         ## Use mockmyid.com for test email
         self.browser.find_element_by_id(
                 'authentication_email'
-        ).send_keys('kevin@mockmyid.com')
+        ).send_keys(TEST_EMAIL)
         self.browser.find_element_by_tag_name('button').click()
 
         # The persona window closes
@@ -58,17 +41,17 @@ class LoginTest(FunctionalTest):
         # He can see that he is logged in
         self.wait_for_element_with_id('id_logout')
         navbar = self.browser.find_element_by_css_selector('.navbar')
-        self.assertIn('kevin@mockmyid.com', navbar.text)
+        self.assertIn(TEST_EMAIL, navbar.text)
 
         # Refreshing the page, he sees it's a real session login,
         # not just a one-off for that page
         self.browser.refresh()
-        self.wait_to_be_logged_in()
+        self.wait_to_be_logged_in(TEST_EMAIL)
 
         # Terrified of this new feature, he reflexively clicks "logout"
         self.browser.find_element_by_id('id_logout').click()
-        self.wait_to_be_logged_out()
+        self.wait_to_be_logged_out(TEST_EMAIL)
 
         # The "logged out" status also persists after a refresh
         self.browser.refresh()
-        self.wait_to_be_logged_out()
+        self.wait_to_be_logged_out(TEST_EMAIL)
