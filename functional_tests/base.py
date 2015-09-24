@@ -37,6 +37,17 @@ class FunctionalTest(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def switch_to_new_window(self, text_in_title):
+        retries = 60
+        while retries > 0:
+            for handle in self.browser.window_handles:
+                self.browser.switch_to_window(handle)
+                if text_in_title in self.browser.title:
+                    return
+            retries -= 1
+            time.sleep(0.5)
+        self.fail('could not find window')
+
     def check_for_row_in_list_table(self, row_text):
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
